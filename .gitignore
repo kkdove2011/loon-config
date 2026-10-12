@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+private/
+.env
+.env.*
+*.local.conf
+*.p12
+*.pem
+*.key
+*.log
