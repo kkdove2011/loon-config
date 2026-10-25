@@ -1,10 +1,10 @@
 #!name = 小红书封禁评论恢复
-#!desc = 尝试恢复当前登录账号的评论入口，默认选中评论页。仅修改含封禁标记的个人主页响应；不改变服务端封禁状态，不自动删除评论。实验功能，实际效果待手机验证。
+#!desc = v2 诊断版：尝试恢复本人主页已有的评论标签。命中时记录日志并发送限频通知。无登录凭据，无自动删除；实际手机效果待验证。
 #!author = kkdove2011
 #!date = 2026-10-25
 
-[Rewrite]
-^https://edith\.xiaohongshu\.com/api/sns/v3/user/me(?:\?|$) response-body-json-jq '(.data|select(.is_recommend_level_illegal==true))|=(.is_recommend_level_illegal=false|del(.illegal_info)|.hula_tabs.tab_id_selected="comment")'
+[Script]
+http-response ^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v3\/user\/me(?:\?|$) script-path=https://raw.githubusercontent.com/kkdove2011/loon-config/main/scripts/xhs-comment-recovery.v2.js,requires-body=true,timeout=10,tag=小红书封禁评论恢复v2
 
 [Mitm]
 hostname = edith.xiaohongshu.com
